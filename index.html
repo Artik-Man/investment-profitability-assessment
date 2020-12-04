@@ -26,45 +26,57 @@
     <script>
       const pages = [
         {
-          text: 'Total Assets позволяет быстро оценить динамику активов компании',
+          text: 'Total Assets позволяет быстро оценить динамику активов компании <br>Хорошо, если растут',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_asset',
         },
         {
-          text: 'Total Liabilities позволяет оценить долги компании',
+          text: 'Total Liabilities позволяет оценить долги компании <br>Хорошо, если долги уменьшаются',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_liab',
         },
         {
           text:
-            'Total Shareholders Equity или акционерный капитал показывает возможности для развития бизнеса. Чем больше, тем лучше',
+            'Total Shareholders Equity или акционерный капитал показывает возможности для развития бизнеса <br>Хорошо, если растёт',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_share_holder_equity',
         },
-        { text: 'Total Revenue - выручка.', src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data' },
         {
-          text: 'Net Income - чистая прибыль',
+          text: 'Total Revenue - выручка <br>Хорошо, если растёт',
+          src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data',
+        },
+        {
+          text: 'Net Income - чистая прибыль <br>Хорошо, если растёт',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=net_income_loss_share_holder',
         },
         {
-          text: 'Net Profit Margin - рентабельность продаж',
+          text: 'Net Profit Margin - рентабельность продаж <br>Чем больше, тем лучше',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=profit_margin',
         },
         {
-          text: 'Return on Equity (ROE) Рентабельность акционерного капитала показывает эффективность компании',
+          text:
+            'Return on Equity (ROE) Рентабельность акционерного капитала показывает эффективность компании<br>Чем больше, тем лучше',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=ret_equity',
         },
         {
-          text: 'Return on Assets (ROA) Рентабельность активов',
+          text: 'Return on Assets (ROA) Рентабельность активов<br>Чем больше, тем лучше',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=ret_asset',
         },
         {
-          text: 'Total Debit / Equity  (Финансовый долг/Акционерный капитал)',
+          text: 'Total Debit / Equity  (Финансовый долг/Акционерный капитал)<br>Чем меньше, тем лучше',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_debt_tot_equity',
         },
         {
           text:
-            'Long-Term Debt / EBITDA  - соотношение долгосрочной задолженности к EBITDA показывает прибыль компании до выплаты налогов, процентов по кредитам и амортизации. ЧЕМ НИЖЕ, ТЕМ ЛУЧШЕ',
+            'Long-Term Debt / EBITDA  - соотношение долгосрочной задолженности к EBITDA показывает прибыль компании до выплаты налогов, процентов по кредитам и амортизации. <br>Чем меньше, тем лучше',
           src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=lt_debt_to_ebitda',
         },
-        { text: 'Overview', src: 'https://www.finasquare.com/stocks/<TRACKER>/company-info/overview' },
+        {
+          text: `Overview.
+            <br> EV/EBITDA чем меньше, тем лучше
+            <br> P/E чем меньше, тем лучше (ориентир 6 для российских и 28 для американских компаний)
+            <br> P/B чем меньше, тем лучше (ориентир 1)
+            <br> P/S чем меньше, тем лучше (ориентир 2)
+            `,
+          src: 'https://www.finasquare.com/stocks/<TRACKER>/company-info/overview',
+        },
       ];
       const result = document.querySelector('#result');
       const form = document.querySelector('form');
@@ -78,7 +90,7 @@
 
         pages.forEach((page) => {
           const p = document.createElement('p');
-          p.innerText = page.text;
+          p.innerHTML = page.text;
           const frame = document.createElement('iframe');
           frame.src = page.src.replace('<TRACKER>', tracker);
 
