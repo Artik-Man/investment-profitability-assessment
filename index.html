@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Оценка рентабельности инвестирования beta</title>
+    <style>
+      iframe {
+        width: 90%;
+        height: 1100px;
+        border: none;
+        margin-bottom: 4em;
+      }
+      p {
+        font-size: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <input type="text" placeholder="NVDA" />
+      <button>search</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const pages = [
+        {
+          text: 'Total Assets позволяет быстро оценить динамику активов компании',
+          src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_asset',
+        },
+        {
+          text: 'Total Liabilities позволяет оценить долги компании',
+          src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_liab',
+        },
+        {
+          text:
+            'Total Shareholders Equity или акционерный капитал показывает возможности для развития бизнеса. Чем больше, тем лучше',
+          src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data?metric=tot_share_holder_equity',
+        },
+        { text: 'Total Revenue - выручка.', src: 'https://www.finasquare.com/stocks/<TRACKER>/data/graph-data' },
+        {
+          text: 'Net Income - чистая прибыль',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=net_income_loss_share_holder',
+        },
+        {
+          text: 'Net Profit Margin - рентабельность продаж',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=profit_margin',
+        },
+        {
+          text: 'Return on Equity (ROE) Рентабельность акционерного капитала показывает эффективность компании',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=ret_equity',
+        },
+        {
+          text: 'Return on Assets (ROA) Рентабельность активов',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=ret_asset',
+        },
+        {
+          text: 'Total Debit / Equity  (Финансовый долг/Акционерный капитал)',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=tot_debt_tot_equity',
+        },
+        {
+          text:
+            'Long-Term Debt / EBITDA  - соотношение долгосрочной задолженности к EBITDA показывает прибыль компании до выплаты налогов, процентов по кредитам и амортизации. ЧЕМ НИЖЕ, ТЕМ ЛУЧШЕ',
+          src: 'https://www.finasquare.com/stocks/NVDA/data/graph-data?metric=lt_debt_to_ebitda',
+        },
+        { text: 'Overview', src: 'https://www.finasquare.com/stocks/NVDA/company-info/overview' },
+      ];
+      const result = document.querySelector('#result');
+      const form = document.querySelector('form');
+      const input = document.querySelector('form input[type="text"]');
+
+      form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        result.innerHTML = '';
+
+        const tracker = input.value.toUpperCase();
+
+        pages.forEach((page) => {
+          const p = document.createElement('p');
+          p.innerText = page.text;
+          const frame = document.createElement('iframe');
+          frame.src = page.src.replace('<TRACKER>', tracker);
+
+          result.appendChild(p);
+          result.appendChild(frame);
+        });
+      });
+    </script>
+  </body>
+</html>
